@@ -6,6 +6,7 @@ from flask import current_app
 
 class _moment(object):
     @staticmethod
+    # TODO: this should now include moment-timezone also
     def include_moment(version='2.20.1', local_js=None, timezone=None):
         js = ''
         js_tz = ''
