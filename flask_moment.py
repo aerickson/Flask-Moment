@@ -19,7 +19,7 @@ class _moment(object):
         return Markup('''%s<script>
 moment.locale("en");
 function flask_moment_render(elem) {
-    $(elem).text(eval('moment("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
+    $(elem).text(eval('moment.utc("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
     $(elem).removeClass('flask-moment').show();
 }
 function flask_moment_render_all() {
