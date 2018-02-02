@@ -8,7 +8,7 @@ class _moment(object):
     @staticmethod
     def include_moment(version='2.20.1', local_js=None, timezone=None):
         js = ''
-        tz_js = ''
+        js_tz = ''
         if timezone is not None:
             js_tz = 'var user_timezone = "%s";' % timezone
         if local_js is not None:
