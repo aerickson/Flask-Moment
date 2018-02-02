@@ -6,8 +6,11 @@ from flask import current_app
 
 class _moment(object):
     @staticmethod
-    def include_moment(version='2.18.1', local_js=None):
+    def include_moment(version='2.20.1', local_js=None, timezone=None):
         js = ''
+        tz_js = ''
+        if timezone is not None:
+            js_tz = 'var user_timezone = "%s";' % timezone
         if local_js is not None:
             js = '<script src="%s"></script>\n' % local_js
         elif version is not None:
@@ -17,9 +20,16 @@ class _moment(object):
             js = '<script src="//cdnjs.cloudflare.com/ajax/libs/' \
                  'moment.js/%s/%s"></script>\n' % (version, js_filename)
         return Markup('''%s<script>
+%s
 moment.locale("en");
 function flask_moment_render(elem) {
-    $(elem).text(eval('moment("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
+    if (typeof variable !== 'user_timezone') {
+        // the variable is defined
+        $(elem).text(eval('moment.utc("' + $(elem).data('timestamp') + '").tz(user_timezone).' + $(elem).data('format') + ';'));
+    }
+    else {
+        $(elem).text(eval('moment.utc("' + $(elem).data('timestamp') + '").' + $(elem).data('format') + ';'));
+    }
     $(elem).removeClass('flask-moment').show();
 }
 function flask_moment_render_all() {
@@ -33,7 +43,7 @@ function flask_moment_render_all() {
 $(document).ready(function() {
     flask_moment_render_all();
 });
-</script>''' % js)  # noqa: E501
+</script>''' % (js, js_tz))  # noqa: E501
 
     @staticmethod
     def include_jquery(version='2.1.0', local_js=None):
