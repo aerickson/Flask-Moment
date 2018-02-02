@@ -23,7 +23,7 @@ class _moment(object):
 %s
 moment.locale("en");
 function flask_moment_render(elem) {
-    if (typeof variable !== 'user_timezone') {
+    if (typeof user_timezone !== 'undefined') {
         // the variable is defined
         $(elem).text(eval('moment.utc("' + $(elem).data('timestamp') + '").tz(user_timezone).' + $(elem).data('format') + ';'));
     }
