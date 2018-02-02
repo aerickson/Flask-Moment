@@ -10,7 +10,7 @@ class _moment(object):
     def include_moment(version='2.20.1', local_js=None, timezone=None):
         js = ''
         js_tz = ''
-        if timezone is not None:
+        if timezone is not None and timezone != 'UTC':
             js_tz = 'var user_timezone = "%s";' % timezone
         if local_js is not None:
             js = '<script src="%s"></script>\n' % local_js
