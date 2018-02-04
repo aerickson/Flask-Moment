@@ -26,9 +26,9 @@ class _moment(object):
             js = '<script src="//cdnjs.cloudflare.com/ajax/libs/' \
                  'moment.js/%s/%s"></script>\n' % (version, js_filename)
         return Markup('''%s<script>
-%s
 moment.locale("en");
 function flask_moment_render(elem) {
+    %s
     if (typeof user_timezone !== 'undefined') {
         // the variable is defined
         $(elem).text(eval('moment.utc("' + $(elem).data('timestamp') + '").tz(user_timezone).' + $(elem).data('format') + ';'));
